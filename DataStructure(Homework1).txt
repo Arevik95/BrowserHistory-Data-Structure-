@@ -1,0 +1,295 @@
+#include <iostream>
+using namespace std;
+
+void selectionSort(int *a,int n,bool f)
+{
+	if(f)
+	{
+	
+   for(int i=0;i<n;i++)
+   {
+	   int largest=0;
+	   for(int j = 0;j<n-i;j++)
+	   {
+		   if(a[largest]<a[j])
+			   largest=j;
+	   }
+	   swap(a[largest],a[n-i-1]);  
+   }
+	}
+	else
+		{
+   for(int i=0;i<n;i++)
+   {
+	   int smallest=0;
+	   for(int j = 0;j<n-i;j++)
+	   {
+		   if(a[smallest]>a[j])
+			   smallest=j;
+	   }
+	    
+	   swap(a[smallest],a[n-i-1]);  
+   }
+	}
+} 
+
+
+
+void bubbleSort(int *a,int n,bool f)
+{
+	if(f)
+	{
+   bool sorted = false;
+   // False when swaps occur
+   int pass = 1;
+   while (!sorted && (pass < n))
+   {
+      sorted = true;
+      for (int i=0;i<n-pass;i++)
+      {
+          if (a[i]>a[i+1])
+         {
+             swap(a[i], a[i+1]);
+             sorted = false; 
+         } 
+
+      } 
+
+   } 
+   pass++;
+	}
+	else
+		{
+   bool sorted = false;
+   // False when swaps occur
+   int pass = 1;
+   while (!sorted && (pass < n))
+   {
+      sorted = true;
+      for (int i=0;i<n-pass;i++)
+      {
+          if (a[i]<a[i+1])
+         {
+             swap(a[i], a[i+1]);
+             sorted = false; 
+         } 
+
+      } 
+
+   } 
+   pass++;
+	}
+} 
+
+
+
+
+void insertionSort(int *a,int n,bool f)
+{
+	if(f)
+	{
+   for (int i=1;i<n;i++)
+   {
+      int nextItem = a[i];
+      int loc = i;
+      while ((loc > 0) && (a[loc-1] > nextItem))
+      {
+        a[loc] = a[loc-1];
+		a[loc-1] = nextItem; 
+		loc--;
+	  }	
+    }
+	}
+	else 
+	{
+   for (int i=1;i<n;i++)
+   {
+      int nextItem = a[i];
+      int loc = i;
+      while ((loc > 0) && (a[loc-1] < nextItem))
+      {
+        a[loc] = a[loc-1];
+		a[loc-1] = nextItem; 
+		loc--;
+	  }	
+    }
+	}
+
+  
+} 
+
+void merge1(int*,int*,int,int,int,bool);
+void mergesort1(int *a, int*b, int low, int high,bool f)
+{
+	int half;
+	if(low<high)
+	{
+		half=(low+high)/2;
+		mergesort1(a,b,low,half,f);
+		mergesort1(a,b,half+1,high,f);
+		merge1(a,b,low,half,high,f);
+	}
+}
+void merge1(int *a, int *b, int low, int half, int high,bool f)
+{
+	int h,i,j,k;
+	h=low;
+	i=low;
+	j=half+1;
+	if(f)
+	{
+	while((h<=half)&&(j<=high))
+	{
+		if(a[h]<=a[j])
+		{
+			b[i]=a[h];
+			h++;
+		}
+		else
+		{
+			b[i]=a[j];
+			j++;
+		}
+		i++;
+	}
+	if(h>half)
+	{
+		for(k=j; k<=high; k++)
+		{
+			b[i]=a[k];
+			i++;
+		}
+	}
+	else
+	{
+		for(k=h; k<=half; k++)
+		{
+			b[i]=a[k];
+			i++;
+		}
+	}
+	for(k=low; k<=high; k++) 
+		a[k]=b[k];
+	}
+	else
+		{
+	while((h<=half)&&(j<=high))
+	{
+		if(a[h]>=a[j])
+		{
+			b[i]=a[h];
+			h++;
+		}
+		else
+		{
+			b[i]=a[j];
+			j++;
+		}
+		i++;
+	}
+	if(h>half)
+	{
+		for(k=j; k<=high; k++)
+		{
+			b[i]=a[k];
+			i++;
+		}
+	}
+	else
+	{
+		for(k=h; k<=half; k++)
+		{
+			b[i]=a[k];
+			i++;
+		}
+	}
+	for(k=low; k<=high; k++) 
+		a[k]=b[k];
+	}
+
+}
+
+
+
+int partitionf(int* a, int left, int right, bool f)
+{
+    int pivot = a[right];
+	if(f)
+	{
+    while ( left < right )
+    {
+        while ( a[left] < pivot )
+            left++;
+
+        while ( a[right] > pivot )
+            right--;
+
+        if ( a[left] == a[right] )
+            left++;
+        else if ( left < right )
+        {
+			swap(a[left],a[right]);
+        }
+    }
+	}
+	else
+		{
+    while ( left < right )
+    {
+        while ( a[left] > pivot )
+            left++;
+
+        while ( a[right] < pivot )
+            right--;
+
+        if ( a[left] == a[right] )
+            left++;
+        else if ( left < right )
+        {
+			swap(a[left],a[right]);
+        }
+    }
+	}
+    return right;
+}
+
+
+
+void quickSort(int *a, int right, int left,bool f)
+{
+    if (right-left<0)
+       return; 
+    else 
+	{
+      int pivot = a[right];
+      int partition = partitionf(a, left, right,f);
+	  quickSort(a,partition-1,left,f);
+      quickSort(a,right, partition+1,f);
+	  
+    }
+	
+	return;
+}
+
+void printArray(int *a,int n)
+{
+	
+	for(int i=0; i<n; i++)
+		cout<<a[i]<<" ";
+	cout<<endl;
+}
+
+int main()
+{
+	int a[] = {32,98,12,-98,45,543};
+	int n,i;
+	n = sizeof(a)/sizeof(int);
+	int *b = new int [n];
+	//mergesort1(a,b,0,n-1,0);
+	//insertionSort(a,n,0);
+	//bubbleSort(a,n,1);
+	quickSort(a,n-1,0,0);
+	//selectionSort(a,n,0);
+	
+	printArray(a,n);
+}
