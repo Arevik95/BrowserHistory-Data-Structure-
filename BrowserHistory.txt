@@ -1,0 +1,191 @@
+ Example program
+#include iostream
+#include string
+#include list
+using namespace std;
+
+
+template class T
+struct Node
+{
+  Node(T data)  data(data), next(NULL), prev(NULL) {}
+  T data;
+  Node  next;
+  Node  prev;
+};
+
+
+template class T
+class DoublyLinkedList
+{
+public
+  DoublyLinkedList()  head(NULL), tail(NULL) {}
+  DoublyLinkedList(const DoublyLinkedListT & dll);
+  ~DoublyLinkedList();
+  Node string   addNodeAfter(NodeT n,T data);
+  void addNodeBefore(NodeT n,T data);
+  void deleteNode(T data);
+  
+public
+  NodeT  head;
+  NodeT  tail;
+};
+
+
+
+template class T
+DoublyLinkedListT~DoublyLinkedList()
+{
+  NodeT  tmp = NULL;
+  while (head)
+    { 
+      tmp = head;
+      head = head-next;
+      delete tmp;
+    }
+  head = tail = NULL;
+}
+
+
+
+template class T
+Node string  DoublyLinkedListTaddNodeAfter(NodeT n,T data)
+{
+  NodeT  t = new NodeT(data);
+  NodeT a;
+  if (n == NULL)
+    {
+		head = new NodeT(head);
+		tail = new NodeT(tail);
+		head-next =  t;
+		tail-prev =t;
+		t-next = tail;
+		t-prev= head;
+    }
+  else
+    {
+		if(n-next=tail)
+			tail-prev=t;
+		a = n-next;
+		n-next = t;
+		a-prev = t;
+		t-next = a;
+		t-prev = n;
+    }
+  return t;
+}
+
+
+template class T
+void DoublyLinkedListTdeleteNode(T data)
+{
+  NodeT  tmp = head;
+  while (tmp && tmp-data != data)
+    {
+      tmp = tmp-next;
+    }
+
+  if (tmp)
+    {
+      if (tmp-prev && tmp-next)  no change to head or tail
+        {
+          tmp-prev-next = tmp-next;
+          tmp-next-prev = tmp-prev;
+        }
+      else if (tmp-prev)  change to tail
+        {
+          tmp-prev-next = tmp-next;
+          tail = tmp-prev;
+        }
+      else if (tmp-next)  change to head
+        {
+          tmp-next-prev = tmp-prev;
+          head = tmp-next;
+        }
+
+      delete tmp;
+    }
+}
+
+
+
+class BrowserHistary
+{
+public
+	DoublyLinkedList string urlList;
+			
+
+public		Nodestring curr;
+			void insertURL(string a)
+			{
+				curr=urlList.addNodeAfter(curr,a);
+			};
+			void setCurr(Nodestring a)
+			{
+				curr = a;
+			};
+			Nodestring  getCurr()
+			{
+				return curr;
+			}
+			DoublyLinkedList string geturlList()
+			{
+				return urlList;
+			}
+			BrowserHistary()
+			{
+				urlList.head = urlList.tail = NULL;
+				curr = urlList.head;
+			}
+};
+
+int main()
+{
+  string name;
+  BrowserHistary bh;
+  while (1==1)
+  {
+  cout  URL or command ;
+  getline (stdcin, name);
+  if (name.compare(exit)==0)
+  break;
+  if (name.compare(next)!=0 && name.compare(back)!=0)
+  {
+	  bh.insertURL(name);	  
+	  bh.curr-next =bh.urlList.tail;
+  }
+  if (name.compare(next)==0 )
+  {
+	  if(bh.curr-next == bh.urlList.tail)
+	  coutThere is no nextendl;
+	  else
+	  {
+	  bh.curr = bh.curr-next;
+	  coutbh.curr-dataendl;
+	  }
+  }
+
+  if (name.compare(back)==0 )
+  {
+	  if(bh.curr-prev ==bh.urlList.head)
+	  coutThere is nothing to go back to;
+	  else
+	  {
+	  bh.curr = bh.curr-prev;
+	  coutbh.curr-dataendl;
+	  }
+  }
+  if (name.compare(all)==0 )
+  { 
+	  Node string a = bh.urlList.head;
+	  while (a!=bh.urlList.tail)
+	  {
+		  a=a-next;
+		  couta-data   ;
+	  }
+  }
+
+
+}
+
+}
